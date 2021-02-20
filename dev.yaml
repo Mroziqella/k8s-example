@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-example-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-example: web
+  template:
+    metadata:
+      labels:
+        k8s-example: web
+    spec:
+      containers:
+        - name: container-name
+          image: pl-recursion-dev_k8s-image:latest
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-example-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    k8s-example: web
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 32001

@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  k8s-image:
+    build: .
+    container_name: ${CONTAINER_NAME}
+    ports:
+      - "8081:8080"
